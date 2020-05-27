@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <hr />
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="x in employees">
+                    <td>{{ x.empId }}</td>
+                    <td>{{ x.firstName }}</td>
+                    <td>{{ x.lastName }}</td>
+                    <td>{{ x.age }}</td>
+                </tr>
+            </table>
+        </div>
+
+<hr />
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http.get("http://localhost:59722/api/Employee")
+                .then(function (response) {
+                    console.log(response.data);
+                    $scope.employees = response.data;
+                });
+        });
+    </script>
